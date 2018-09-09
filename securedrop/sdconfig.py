@@ -30,26 +30,6 @@ class SDConfig(object):
         self.DATABASE_FILE = '/var/lib/securedrop/db.sqlite'
 
         try:
-            self.DATABASE_USERNAME = _config.DATABASE_USERNAME  # type: ignore
-        except AttributeError:
-            pass
-
-        try:
-            self.DATABASE_PASSWORD = _config.DATABASE_PASSWORD  # type: ignore
-        except AttributeError:
-            pass
-
-        try:
-            self.DATABASE_HOST = _config.DATABASE_HOST  # type: ignore
-        except AttributeError:
-            pass
-
-        try:
-            self.DATABASE_NAME = _config.DATABASE_NAME  # type: ignore
-        except AttributeError:
-            pass
-
-        try:
             self.ADJECTIVES = _config.ADJECTIVES  # type: ignore
         except AttributeError:
             pass
