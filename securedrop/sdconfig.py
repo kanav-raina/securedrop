@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import json
+import typing
+
 import config as _config
 
-import typing
 # https://www.python.org/dev/peps/pep-0484/#runtime-or-type-checking
 if typing.TYPE_CHECKING:
     # flake8 can not understand type annotation yet.
@@ -12,9 +14,16 @@ if typing.TYPE_CHECKING:
     from typing import List, Dict  # noqa: F401
 
 
+CONFIG_FILE = '/etc/securedrop/config.json'
+
+
 class SDConfig(object):
     def __init__(self):
         # type: () -> None
+
+        with open(CONFIG_FILE) as f:
+            json_config = json.loads(f.read())
+
         try:
             self.JournalistInterfaceFlaskConfig = \
                 _config.JournalistInterfaceFlaskConfig  # type: ignore
