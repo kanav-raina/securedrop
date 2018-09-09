@@ -63,6 +63,10 @@ database_migration() {
     fi
 }
 
+config_migration() {
+
+}
+
 # Supports passing authorization headers for the SecureDrop API.
 # Only affects the Journalist Interface. Required for unattended upgrade
 # to v0.9.0.
@@ -92,6 +96,9 @@ case "$1" in
     chown -R www-data:www-data /var/www/securedrop
     chown www-data:www-data /var/www/journalist.wsgi
     chown www-data:www-data /var/www/source.wsgi
+
+    # Migrate the python-based config to JSON
+    /var/www/securedrop/migrate_config.py
 
     # Apache's default sites are not allowed by the securedrop apparmor profile
     # disable the site before putting the apache apparmor profile in enforce
