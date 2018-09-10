@@ -22,17 +22,18 @@ def totp_window():
     # whole test, optionally sleep.
     now = datetime.now()
     mod = now.second % 30
-    if mod < 3:
+    if mod < 5:
         time.sleep(mod % 30)
         now = datetime.now()
+    window_end = now.replace(microsecond=0) + timedelta(seconds=(30-mod))
 
     yield
 
     # This check ensures that the token was used during the same window
     # in the event that the app's logic only checks for token reuse if the
     # token was valid.
-    then = datetime.now()
-    assert then < now + timedelta(seconds=(30 - mod))
+    now = datetime.now()
+    assert now < window_end
 
 
 def test_totp_reuse_protections(journalist_app, test_journo):
